@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.FKOKViewController">
+   <children>
+      <SplitPane dividerPositions="0.3226452905811623" layoutX="300.0" layoutY="78.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="fagLabel" layoutX="20.0" layoutY="34.0" prefHeight="17.0" prefWidth="39.0" text="Fag: " />
+                  <Button fx:id="updateLabelButton" layoutX="191.0" layoutY="30.0" mnemonicParsing="false" onAction="#updateLabel" text="Oppdater merking" />
+                  <ChoiceBox fx:id="fagBox" layoutX="50.0" layoutY="30.0" prefHeight="25.0" prefWidth="131.0" />
+                  <StackPane fx:id="fagPane" layoutX="6.0" layoutY="89.0" prefHeight="509.0" prefWidth="313.0" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="merkeLabel" layoutX="48.0" layoutY="79.0" text="Merke Eksempel:" />
+                  <Label fx:id="merkeEksempel" layoutX="153.0" layoutY="79.0" prefHeight="17.0" prefWidth="444.0" text="+" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

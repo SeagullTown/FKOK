@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.ElViewController">
+   <children>
+      <Accordion prefHeight="450.0" prefWidth="300.0">
+        <panes>
+          <TitledPane animated="false" text="Lokasjon">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Bygg Nr:" AnchorPane.topAnchor="10.0" />
+                        <TextField fx:id="byggNrField" layoutX="184.0" layoutY="16.0" onInputMethodTextChanged="#createString" prefWidth="100.0" promptText="Bygg" />
+                        <Label fx:id="byggLabel" layoutX="14.0" layoutY="70.0" prefHeight="17.0" prefWidth="256.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" text="System">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="systemNrField" layoutX="184.0" layoutY="16.0" prefHeight="25.0" prefWidth="100.0" promptText="system" />
+                        <Label layoutX="14.0" layoutY="10.0" text="Systemnummer: " AnchorPane.topAnchor="10.0" />
+                        <Label layoutX="14.0" layoutY="50.0" text="Systemløpenummer: " AnchorPane.topAnchor="40.0" />
+                        <TextField fx:id="systemLNrField" layoutX="184.0" layoutY="46.0" prefHeight="25.0" prefWidth="100.0" promptText="løpenummer" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" text="Komponent">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="kompNrField" layoutX="184.0" layoutY="16.0" prefWidth="100.0" promptText="komponent" />
+                        <TextField fx:id="kompLNrField" layoutX="184.0" layoutY="46.0" prefWidth="100.0" promptText="løpenummer" />
+                        <Label layoutX="14.0" layoutY="20.0" text="Komponentnummer:" AnchorPane.topAnchor="10.0" />
+                        <Label layoutX="14.0" layoutY="58.0" text="Komponentløpenummer:" AnchorPane.topAnchor="40.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+        </panes>
+      </Accordion>
+   </children>
+</AnchorPane>
