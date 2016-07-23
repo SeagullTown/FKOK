@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,9 +19,6 @@ import javafx.scene.layout.StackPane;
 
 public class FKOKViewController implements Initializable  {
 	private Main main;
-	
-	private final ObservableList<String> fagListe = FXCollections.observableArrayList(
-			"Elektrisk", "Vann");
 	
 	@FXML
 	private Label fagLabel;
@@ -36,6 +34,8 @@ public class FKOKViewController implements Initializable  {
 	private AnchorPane elPane;
 	@FXML
 	private StackPane fagPane;
+	@FXML
+	private AnchorPane rightAnchor;
 	
 	@FXML
 	private ElViewController elController;
@@ -55,14 +55,27 @@ public class FKOKViewController implements Initializable  {
 		
 		
 		fagBox.getItems().removeAll(fagBox.getItems());
-		fagBox.getItems().addAll("Elektrisk","Vvs");
+		fagBox.getItems().addAll("El og IT","Vvs");
+		
 		//fagBox.getSelectionModel().select("Option B");
 		
 		fagBox.setOnAction((event) -> {
-			if(fagBox.getValue().equals("Elektrisk")) {
+			if(fagBox.getValue().equals("El og IT")) {
 				showElView();
+				
 			}
 		});
+		
+		merkeEksempel = new Label();
+		merkeEksempel.setLayoutX(153.0);
+		merkeEksempel.setLayoutY(79.0);
+		merkeEksempel.setPrefHeight(17.0);
+		merkeEksempel.setPrefWidth(445.0);
+		
+
+		
+		rightAnchor.getChildren().add(merkeEksempel);
+		
 		
 		
 	}
@@ -73,9 +86,7 @@ public class FKOKViewController implements Initializable  {
 		this.main = main;
 	}
 	
-	public void setBindings() {
-		merkeEksempel.textProperty().bind(elController.getMerking());
-	}
+	
 	
 	public void updateLabel() {
 		elController.createString();
@@ -89,7 +100,7 @@ public class FKOKViewController implements Initializable  {
 			elPane = (AnchorPane) loader.load();
 			
 			elController = loader.getController();
-			//setBindings();
+			merkeEksempel.textProperty().bind(elController.getMerking());
 			
 			
 			
