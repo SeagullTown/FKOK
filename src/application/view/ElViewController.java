@@ -1,12 +1,22 @@
 package application.view;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
+
+import com.sun.javafx.scene.control.SelectedCellsMap;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
@@ -18,7 +28,9 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -66,6 +78,8 @@ public class ElViewController implements Initializable {
 	private String filePathBygningsdelnummer = "/resources/bygningsdelsnummer.txt";
 	private String filePathEtasjekoder = "/model/etasjekoder.txt";
 	private String filePathLokasjonskoder = "/model/lokasjonskoder.txt";
+	
+	private ComboBox<String> systemkoder;
 
 	public ElViewController() {
 
@@ -87,12 +101,22 @@ public class ElViewController implements Initializable {
 		systemString = new SimpleStringProperty(this, "systemString", initialValue);
 		komponentString = new SimpleStringProperty(this, "komponentString", initialValue);
 		merking = new SimpleStringProperty();
-
+		
+		bygningsdelnummer = FXCollections.observableArrayList();
+		readFiles();
+		systemkoder = new ComboBox<>(bygningsdelnummer);
+		systemkoder.setEditable(true);
+		
+		
+		
 		fillPanes();
 		setBindings();
 
 	}
-
+	
+	/*
+	 * currently deprecated.
+	 */
 	public void createString() {
 
 		merking.set(byggDefault + byggString.getValue() + systemDefault + systemString.getValue() + komponentDefault
@@ -112,7 +136,7 @@ public class ElViewController implements Initializable {
 		byggLabel.textProperty().bind(Bindings.concat(byggDefault, byggNrField.textProperty()));
 
 		systemLabel.textProperty()
-				.bind(Bindings.concat(systemDefault, systemNrField.textProperty(), ".", systemLNrField.textProperty()));
+				.bind(Bindings.concat(systemDefault, systemkoder.valueProperty(), ".", systemLNrField.textProperty()));
 
 		komponentLabel.textProperty()
 				.bind(Bindings.concat(komponentDefault, kompNrField.textProperty(), ".", kompLNrField.textProperty()));
@@ -144,11 +168,22 @@ public class ElViewController implements Initializable {
 		byggPane.getChildren().add(byggLabel);
 
 		// System nodes
+		
+		systemkoder.setLayoutX(184.0);
+		systemkoder.setLayoutY(16.0);
+		systemkoder.setPrefWidth(100.0);
+		systemkoder.setPromptText("System");
+		systemPane.getChildren().add(systemkoder);
+		
+		
+		/*
+		 * 
 		systemNrField.setLayoutX(184.0);
 		systemNrField.setLayoutY(16.0);
 		systemNrField.setPrefWidth(100.0);
 		systemNrField.setPromptText("System");
 		systemPane.getChildren().add(systemNrField);
+		*/
 
 		systemLNrField.setLayoutX(184.0);
 		systemLNrField.setLayoutY(46);
@@ -181,6 +216,25 @@ public class ElViewController implements Initializable {
 		komponentLabel.setLayoutY(76);
 		kompPane.getChildren().add(komponentLabel);
 
+	}
+	
+	public void readFiles() {
+		
+		try  {
+			
+			
+			Stream<String> stream = Files.lines(Paths.get("resources/bygningsdelsnummer.txt"));
+		
+			//System.out.println(stream.count());
+			stream.forEach(bygningsdelnummer::add);
+			
+			stream.close();
+			System.out.println(bygningsdelnummer.get(0));
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	
