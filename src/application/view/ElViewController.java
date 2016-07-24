@@ -51,7 +51,7 @@ public class ElViewController implements Initializable {
 	private AnchorPane kompPane;
 
 	// the textfields for input added to the accordion without fxml because of
-	// incopatibility.
+	// Incompatibility.
 	private TextField byggNrField;
 	private TextField systemNrField;
 	private TextField systemLNrField;
@@ -74,10 +74,14 @@ public class ElViewController implements Initializable {
 	private ObservableList<String> bygningsdelnummer;
 	private ObservableList<String> etasjekoder;
 	private ObservableList<String> lokasjonskoder;
-
+	
+	/*
+	 * currently not in use, will be used later.
+	 */
+	
 	private String filePathBygningsdelnummer = "/resources/bygningsdelsnummer.txt";
-	private String filePathEtasjekoder = "/model/etasjekoder.txt";
-	private String filePathLokasjonskoder = "/model/lokasjonskoder.txt";
+	private String filePathEtasjekoder = "/resources/etasjekoder.txt";
+	private String filePathLokasjonskoder = "/resources/lokasjonskoder.txt";
 	
 	private ComboBox<String> systemkoder;
 
