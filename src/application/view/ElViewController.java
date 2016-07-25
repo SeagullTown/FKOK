@@ -72,18 +72,18 @@ public class ElViewController implements Initializable {
 	private StringProperty merking;
 
 	private ObservableList<String> bygningsdelnummer;
-	private ObservableList<String> etasjekoder;
-	private ObservableList<String> lokasjonskoder;
+	private ObservableList<String> etasjeNummer;
+	private ObservableList<String> lokasjonNummer;
 	
-	/*
-	 * currently not in use, will be used later.
-	 */
 	
-	private String filePathBygningsdelnummer = "/resources/bygningsdelsnummer.txt";
-	private String filePathEtasjekoder = "/resources/etasjekoder.txt";
-	private String filePathLokasjonskoder = "/resources/lokasjonskoder.txt";
 	
-	private ComboBox<String> systemkoder;
+	private String filePathBygningsdelnummer = "resources/bygningsdelsnummer.txt";
+	private String filePathEtasjekoder = "resources/etasjekoder.txt";
+	private String filePathLokasjonskoder = "resources/lokasjonskoder.txt";
+	
+	private ComboBox<String> systemKoder;
+	private ComboBox<String> etasjeKoder;
+	private ComboBox<String> lokasjonsKoder;
 
 	public ElViewController() {
 
@@ -107,12 +107,19 @@ public class ElViewController implements Initializable {
 		merking = new SimpleStringProperty();
 		
 		bygningsdelnummer = FXCollections.observableArrayList();
+		etasjeNummer = FXCollections.observableArrayList();
+		lokasjonNummer = FXCollections.observableArrayList();
+		
 		readFiles();
-		systemkoder = new ComboBox<>(bygningsdelnummer);
-		systemkoder.setEditable(true);
+		systemKoder = new ComboBox<>(bygningsdelnummer);
+		systemKoder.setEditable(true);
+		
+		etasjeKoder = new ComboBox<>(etasjeNummer);
+		
+		lokasjonsKoder = new ComboBox<>(lokasjonNummer);
 		
 		
-		
+		 
 		fillPanes();
 		setBindings();
 
@@ -140,7 +147,7 @@ public class ElViewController implements Initializable {
 		byggLabel.textProperty().bind(Bindings.concat(byggDefault, byggNrField.textProperty()));
 
 		systemLabel.textProperty()
-				.bind(Bindings.concat(systemDefault, systemkoder.valueProperty(), ".", systemLNrField.textProperty()));
+				.bind(Bindings.concat(systemDefault, systemKoder.valueProperty(), ".", systemLNrField.textProperty()));
 
 		komponentLabel.textProperty()
 				.bind(Bindings.concat(komponentDefault, kompNrField.textProperty(), ".", kompLNrField.textProperty()));
@@ -162,7 +169,17 @@ public class ElViewController implements Initializable {
 		byggNrField.setLayoutY(16.0);
 		byggNrField.setPrefWidth(100.0);
 		byggNrField.setPromptText("Bygg");
-		byggPane.getChildren().add(byggNrField);
+		//byggPane.getChildren().add(byggNrField);
+		
+		
+		etasjeKoder.setLayoutX(184.0);
+		etasjeKoder.setLayoutY(46.0);
+		etasjeKoder.setPrefWidth(100.0);
+		etasjeKoder.setPromptText("Etasje");
+		
+		
+		
+		byggPane.getChildren().addAll(byggNrField,etasjeKoder);
 
 		// Location Label
 		byggLabel = new Label();
@@ -173,11 +190,11 @@ public class ElViewController implements Initializable {
 
 		// System nodes
 		
-		systemkoder.setLayoutX(184.0);
-		systemkoder.setLayoutY(16.0);
-		systemkoder.setPrefWidth(100.0);
-		systemkoder.setPromptText("System");
-		systemPane.getChildren().add(systemkoder);
+		systemKoder.setLayoutX(184.0);
+		systemKoder.setLayoutY(16.0);
+		systemKoder.setPrefWidth(100.0);
+		systemKoder.setPromptText("System");
+		systemPane.getChildren().add(systemKoder);
 		
 		
 		/*
@@ -222,18 +239,31 @@ public class ElViewController implements Initializable {
 
 	}
 	
+	/*
+	 * reads files and adds the contents to lists etc.
+	 */
 	public void readFiles() {
 		
 		try  {
 			
 			
-			Stream<String> stream = Files.lines(Paths.get("resources/bygningsdelsnummer.txt"));
-		
-			//System.out.println(stream.count());
-			stream.forEach(bygningsdelnummer::add);
 			
-			stream.close();
+			Stream<String> stream1 = Files.lines(Paths.get(filePathBygningsdelnummer));
+			stream1.forEach(bygningsdelnummer::add);
+			stream1.close();
 			System.out.println(bygningsdelnummer.get(0));
+			
+			
+			Stream<String> stream2 = Files.lines(Paths.get(filePathEtasjekoder));
+			stream2.forEach(etasjeNummer::add);
+			stream2.close();
+			System.out.println(etasjeNummer.get(0));
+			
+			
+			Stream<String> stream3 = Files.lines(Paths.get(filePathLokasjonskoder));
+			stream3.forEach(lokasjonNummer::add);
+			stream3.close();
+			System.out.println(lokasjonNummer.get(0));
 			
 			
 		} catch (IOException e) {
